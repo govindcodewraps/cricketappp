@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "cricket",
+    "slug": "cricket",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/cricket_icon1.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/Welcome_icc.png",
+      "resizeMode": "cover"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/cricket_icon1.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.kulhadiya.cricket"
+    },
+    "web": {
+      "favicon": "./assets/cricket_icon1.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "053a5548-b536-47fa-b8c7-4eea325f486e"
+      }
+    },
+    "owner": "kulhadiya"
+  }
+}

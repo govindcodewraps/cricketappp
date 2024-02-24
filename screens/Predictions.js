@@ -311,7 +311,7 @@ export default function Prediction ({route}){
         st = st.substring(st.lastIndexOf(".")+1);
         st = st.substring(st.lastIndexOf(".")+1, 3);
         console.log("ICCWCupList, Img Url : ", item._links['wp:featuredmedia'][0].href);
-        if(st == 'png' || st == 'jpg' || st == 'jpe'){
+        if(st == 'png' || st == 'jpg' || st == 'jpe' || st == 'web'){
             st=1;
         }else{
             st=0;
@@ -395,8 +395,14 @@ export default function Prediction ({route}){
                                 <View style={{width: DEVICEWIDTH * 0.2}}/>
                             )
                         }
-                        <View style={{marginTop: 60}}/>
                         </View>
+                        ):(
+                            <></>
+                        )
+                    }
+                    {
+                        index>= DataDetail.length-1 ? (
+                            <View style={{marginTop: 60}}/>
                         ):(
                             <></>
                         )
@@ -500,10 +506,11 @@ export default function Prediction ({route}){
                             justifyContent: "center"}}>
                         <TouchableOpacity onPress={()=> MatchPredMenuActive()} 
                                 style={{width: DEVICEWIDTH * 0.35, alignItems: "center",
-                                justifyContent: "center"}}>
+                                justifyContent: "center", height: DEVICEHEIGHT * 0.15}}>
                             <View style={{width: MatchPreActive ? DEVICEWIDTH * 0.32 : DEVICEWIDTH * 0.30,
                                     backgroundColor: MatchPreActive ? "#7B94EC" : "#444444",
-                                    borderRadius: 7, alignItems: "center"}}>
+                                    borderRadius: 15, alignItems: "center", height: "30%",
+                                    justifyContent: "center"}}>
                                 <Text style={{color: MatchPreActive ? "#000000" : "#FFFFFF",
                                     fontSize: MatchPreActive ? 12 : 10, padding: 3, }}>
                                     Match Predictions</Text>
@@ -514,10 +521,11 @@ export default function Prediction ({route}){
                             justifyContent: "center"}}>
                         <TouchableOpacity onPress={()=>Dream11MecnuActive()}
                                 style={{width: DEVICEWIDTH * 0.35, alignItems: "center",
-                                justifyContent: "center"}}>
+                                justifyContent: "center", height: DEVICEHEIGHT * 0.15}}>
                             <View style={{width: Dream11Active ? DEVICEWIDTH * 0.32 : DEVICEWIDTH * 0.30,
                                     backgroundColor: Dream11Active ? "#7B94EC" : "#444444",
-                                    borderRadius: 7, alignItems: "center"}}>
+                                    borderRadius: 15, alignItems: "center", height: "30%",
+                                    justifyContent: "center"}}>
                             <Text style={{color: Dream11Active ? "#000000" : "#FFFFFF",
                                 fontSize: Dream11Active ? 12 : 10, padding: 3,}}>
                                     Dream 11</Text>

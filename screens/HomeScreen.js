@@ -282,11 +282,11 @@ const HomeScreen = ({ route }) => {
             <Image source={{ uri: item._links['wp:featuredmedia'][0].href }}
               style={styles.CTeamscard} resizeMode="contain" />
           </View>
-          <Text style={{
-            backgroundColor: "#FFFFFF", borderRadius: 8, fontSize: 14, color: "#2574EB",
-            marginTop: 8, width: DEVICEWIDTH * 0.28, padding: 5, marginLeft: 5
-          }}>
-            Cricket Appeal</Text>
+          <View style={{backgroundColor: "#FFFFFF", borderRadius: 8,
+              width: DEVICEWIDTH * 0.28, alignContent: "center", justifyContent: "center"}}>
+            <Text style={{fontSize: 14, color: "#2574EB", padding: 5}}>
+              Cricket Appeal</Text>
+          </View>
           <Text style={[styles.FeatArtLabel, { marginBottom: 0 }]}>{title}...</Text>
         </TouchableOpacity>
         </View>
@@ -499,15 +499,20 @@ const HomeScreen = ({ route }) => {
                 />
               }>
 
-                <View style={{flexDirection: "row", width: "95%",
-                          marginTop: 15, marginBottom: 10, justifyContent: "center",}}>
-                  <Text style={{alignItems: "flex-start", color: "#FFFFFF", fontSize: 17, width: "82%"
+                <View style={{flexDirection: "row", width: "95%", alignItems: "center",
+                          marginTop: 15, marginBottom: 10,}}>
+                  <Text style={{alignItems: "flex-start", color: "#FFFFFF", fontSize: 17, width: "70%"
                   }}>FEATURED ARTICLES</Text>
                   <TouchableOpacity onPress={() => navigation.navigate("MoreMenuList",
-                          {title: "Featured Articles",
-                          PageID: config.BaseUrlv2+'posts?filter[posts_per_page]=1'})}>
-                    <Text style={{alignItems: "flex-end", color: "#5EB9FE", fontSize: 17
-                    }}>View All</Text>
+                      {title: "Featured Articles",
+                      PageID: config.BaseUrlv2+'posts?filter[posts_per_page]=1'})}
+                      style={{width: DEVICEWIDTH * 0.4, height: DEVICEWIDTH * 0.08,
+                        justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{width: DEVICEWIDTH * 0.3, height: DEVICEWIDTH * 0.08,
+                        justifyContent: 'center', alignItems: 'center'}}>
+                      <Text style={{alignItems: "flex-end", color: "#5EB9FE", fontSize: 17
+                      }}>View All</Text>
+                    </View>
                   </TouchableOpacity>
                 </View>
               <Carousel
@@ -521,15 +526,20 @@ const HomeScreen = ({ route }) => {
                 extraData={RefreshFArt}
               />
 
-              <View style={{flexDirection: "row", width: "95%", marginTop: 17,
-                            marginBottom: 7, justifyContent: "center"}}>
-                <Text style={{alignItems: "flex-start", color: "#FFFFFF",
-                            fontSize: 17, width: "82%"}}>CRICKET COVERAGE</Text>
+                <View style={{flexDirection: "row", width: "95%", alignItems: "center",
+                          marginTop: 15, marginBottom: 10,}}>
+                  <Text style={{alignItems: "flex-start", color: "#FFFFFF",
+                            fontSize: 17, width: "70%"}}>CRICKET COVERAGE</Text>
                   <TouchableOpacity onPress={() => navigation.navigate("MoreMenuList",
-                          {title: "Cricket Coverage",
-                          PageID: config.BaseUrlv2+'posts?categories=2'})}>
-                    <Text style={{alignItems: "flex-end", color: "#5EB9FE", fontSize: 17}}>
-                      View All</Text>
+                      {title: "Cricket Coverage",
+                      PageID: config.BaseUrlv2+'posts?categories=2'})}
+                      style={{width: DEVICEWIDTH * 0.4, height: DEVICEWIDTH * 0.08,
+                        justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{width: DEVICEWIDTH * 0.3, height: DEVICEWIDTH * 0.08,
+                        justifyContent: 'center', alignItems: 'center'}}>
+                      <Text style={{alignItems: "flex-end", color: "#5EB9FE", fontSize: 17
+                      }}>View All</Text>
+                    </View>
                   </TouchableOpacity>
               </View>
 
@@ -648,18 +658,24 @@ const HomeScreen = ({ route }) => {
                 marginBottom: 0, marginTop: 15, flexDirection: "column",
                 width: DEVICEWIDTH * 0.95,
               }]}>
-                <View style={{ flexDirection: "row", marginTop: 5, marginLeft: 15 }}>
+                <View style={{ flexDirection: "row", marginLeft: 15, width: DEVICEWIDTH * 0.98,
+                    height: DEVICEHEIGHT * 0.08, alignItems: "center", justifyContent: "center" }}>
                   <Entypo name="trophy" size={27} color="#5EB9FE" />
-                  <Text style={{marginLeft: 10, color: "#FFFFFF", fontSize: 17, width: "66%"
+                  <Text style={{marginLeft: 10, color: "#FFFFFF", fontSize: 17, width: "55%"
                   }}>CRICKET TEAMS</Text>
                 {
                   isCTeamShow ? (
-                  <TouchableOpacity onPress={() => navigation.navigate("MoreMenuList",
-                          {title: "Cricket Teams",
-                          PageID: config.BaseUrlv2+'posts?categories=3'})}>
-                    <Text style={{justifyContent: "center", alignItems: "flex-end",
-                      color: "#5EB9FE", fontSize: 17}}>View All</Text>
-                  </TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("MoreMenuList",
+                        {title: "Cricket Teams",
+                        PageID: config.BaseUrlv2+'posts?categories=3'})}
+                        style={{width: DEVICEWIDTH * 0.4, height: DEVICEWIDTH * 0.08,
+                          justifyContent: 'center', alignItems: 'center'}}>
+                      <View style={{width: DEVICEWIDTH * 0.3, height: DEVICEWIDTH * 0.08,
+                          justifyContent: 'center', alignItems: 'center'}}>
+                        <Text style={{
+                          color: "#5EB9FE", fontSize: 17}}>View All</Text>
+                      </View>
+                    </TouchableOpacity>
                   ):(<></>)
                 }
                 </View>

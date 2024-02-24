@@ -15,11 +15,14 @@ export default class MoreImg_Post extends Component {
                       backgroundColor: "#2574EB", alignItems: 'center',
                       marginTop: DEVICEHEIGHT * 0.042}}>
           <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row"}}>
-              <AntDesign name="arrowleft" size={35} color="#FFFFFF" 
-                      onPress={()=> this.props.navigation.goBack()} />
-              <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 14,
+            <TouchableOpacity onPress={()=> this.props.navigation.goBack()}
+                style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.11,
+                justifyContent: 'center'}}>
+                <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+            </TouchableOpacity>
+            <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 14,
               width: DEVICEWIDTH * 0.87, fontWeight: 'bold'}}>
-                  {this.props.route.params.title}</Text>
+                {this.props.route.params.title}</Text>
           </View>
           </View>
         <WebView 

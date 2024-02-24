@@ -13,10 +13,13 @@ export default class TwitterWebView extends Component {
       <SafeAreaView style={{ flex: 1 }}>
               <View style={{flexDirection: 'row', height: DEVICEHEIGHT * 0.08, width: DEVICEWIDTH,
                             backgroundColor: "#2574EB", alignItems: 'center', marginTop: 35}}>
-                <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row",
-                                marginStart: 20}}>
-                    <AntDesign name="arrowleft" size={35} color="#FFFFFF" 
-                            onPress={()=> this.props.navigation.goBack()} />
+                <View style={{ alignItems: 'center', flexDirection: "row",
+                                marginStart: 10}}>
+                  <TouchableOpacity onPress={()=> this.props.navigation.goBack()}
+                    style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.09,
+                    justifyContent: 'center'}}>
+                    <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                  </TouchableOpacity>
                     <AntDesign name="twitter" size={40} color="#FFFFFF" style={{marginStart: 10}}/>
                     <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 18,
                     width: DEVICEWIDTH * 0.87, fontWeight: 'bold'}}>

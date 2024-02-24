@@ -1,7 +1,8 @@
 import React, {useRef} from "react";
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, Dimensions, ActivityIndicator, Image, StyleSheet, ScrollView,
-        Share} from "react-native";
+        Share,
+        TouchableOpacity} from "react-native";
 import { AntDesign, Feather } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import RenderHtml from 'react-native-render-html';
@@ -136,9 +137,11 @@ export default function ShowDetails({route}){
                       backgroundColor: "#2574EB", alignItems: 'center',
                       marginTop: DEVICEHEIGHT * 0.042}}>
           <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row"}}>
-              <AntDesign name="arrowleft" size={35} color="#FFFFFF" 
-                      onPress={()=> navigation.goBack()} />
-              <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 14,
+            <TouchableOpacity onPress={()=> navigation.goBack()}
+              style={{width: DEVICEWIDTH * 0.22, height: DEVICEHEIGHT * 0.11}}>
+              <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+            </TouchableOpacity>
+              <Text style={{color: "#FFFFFF", marginStart: 0, fontSize: 14,
               width: DEVICEWIDTH * 0.87, fontWeight: 'bold'}}>
                   {route.params.title}</Text>
           </View>

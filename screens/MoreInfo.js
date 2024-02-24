@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, Dimensions, ActivityIndicator, Image, SafeAreaView, StyleSheet, ScrollView, 
-            RefreshControl, } from "react-native";
+            RefreshControl, TouchableOpacity} from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import RenderHtml from 'react-native-render-html';
@@ -24,7 +24,7 @@ export default function MoreInfo({route}){
 
     const FetchData=async ()=>{
         console.log("MoreInfo.js, url : ", route.params.page);
-        let about;
+        let about; 
         if(route.params.action == "1"){
             about = await DR.Get_TopTeamD(route.params.page);
             Set_DataDetail(about);
@@ -95,7 +95,11 @@ const source = {
                             backgroundColor: "#2574EB", alignItems: 'center',
                             marginTop: DEVICEHEIGHT * 0.042}}>
                 <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row"}}>
-                    <AntDesign name="arrowleft" size={35} color="#FFFFFF" onPress={()=> navigation.goBack()} />
+                    <TouchableOpacity onPress={()=> navigation.goBack()}
+                        style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.08,
+                        justifyContent: 'center'}}>
+                        <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                    </TouchableOpacity>
                     <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 20,
                     fontWeight: 'bold'}}>{route.params.title}</Text>
                 </View>

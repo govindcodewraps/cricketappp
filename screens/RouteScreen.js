@@ -20,6 +20,8 @@ import HP from '../screen_presenter/Home_Presenter';
 const DEVICEWIDTH = Dimensions.get('window').width;
 const DEVICEHEIGHT = Dimensions.get('window').height;
 
+const TitlebarHeight = "9%";
+
 export default function RouteScreen({ navigation, route }) {
   const [isServerError, set_isServerError] = React.useState(false);
   const [HomeAct, Set_HomeAct] = React.useState(true)
@@ -30,7 +32,10 @@ export default function RouteScreen({ navigation, route }) {
   const [SName, Set_SName] = React.useState("ICC CRICKET")
   const [isfirst, set_isfirst] = React.useState(0);
   const [isSecond, set_Second] = React.useState(0);
-
+  const [statusbarHeight, set_statusbarHeight] = React.useState("6%");
+  const [BodyHeight, set_BodyHeight] = React.useState("85%");
+  const [MargTopSwepScreen12, set_MargTopSwepScreen12] = React.useState("10%");
+  
   function handlePress(mess, typ) {
     showMessage({
       message: "Error",
@@ -44,7 +49,22 @@ export default function RouteScreen({ navigation, route }) {
   }
   const FetchData = async () => {
     let FA;
-
+    if(DEVICEHEIGHT <= 708){
+      set_statusbarHeight("6%");
+      set_BodyHeight("85%");
+      set_MargTopSwepScreen12("10%");
+    }
+    if(DEVICEHEIGHT <= 734 && DEVICEHEIGHT > 708){
+      set_statusbarHeight("8.4%");
+      set_BodyHeight("87.5%");
+      set_MargTopSwepScreen12("20%");
+    }
+    if(DEVICEHEIGHT > 734){
+      set_statusbarHeight("8.4%");
+      set_BodyHeight("89%");
+      set_MargTopSwepScreen12("30%");
+    }
+    
     FA = await HP.Get_FeaturedArticles('posts?categories=2&per_page=1&page=1');
     if(!FA || FA == "undefined" || !FA.length){
       set_isServerError(true);
@@ -133,12 +153,11 @@ export default function RouteScreen({ navigation, route }) {
   const SwepScreen1 = () => {
     return (
       <View>
-        <View style={{
-          height: DEVICEHEIGHT, width: DEVICEWIDTH,
+        <View style={{height: DEVICEHEIGHT, width: DEVICEWIDTH,
           backgroundColor: "#000000", alignItems: "center",
-          justifyContent: "center", flexDirection: "column"
-        }}>
-          <Image source={require('../assets/SwepScreen1.png')} style={{ width: 360, height: 400 }} />
+          justifyContent: "center", flexDirection: "column"}}>
+          <Image source={require('../assets/SwepScreen1.png')} style={{ width: 360, height: 400,
+                marginTop: "20%" }} />
           <Text style={{ color: "#FFFFFF", fontSize: 14, marginTop: 20 }}>
             Batting, bowling, and a love for the game
           </Text>
@@ -156,15 +175,23 @@ export default function RouteScreen({ navigation, route }) {
               borderRadius: 40,
             }} />
           </View>
-          <View style={{ flexDirection: "row", alignItems: "center", marginTop: 70 }}>
-            <TouchableOpacity onPress={() => Swep1Skip()}>
-              <Text style={{ color: "#FFFFFF", fontSize: 19, fontWeight: "800" }}>
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: 'center',
+               marginTop: MargTopSwepScreen12, width: DEVICEWIDTH * 0.95, height: DEVICEHEIGHT * 0.07}}>
+            <TouchableOpacity onPress={() => Swep1Skip()}
+              style={{width: DEVICEWIDTH * 0.25, height: DEVICEHEIGHT * 0.08,
+                alignItems: 'center', justifyContent: 'center'}}>
+              <Text style={{ color: "#FFFFFF", fontSize: 19, fontWeight: "800",
+                  height: DEVICEHEIGHT * 0.06 }}>
                 Skip
               </Text>
             </TouchableOpacity>
-            <View style={{ width: DEVICEWIDTH * 0.6 }} />
-            <TouchableOpacity onPress={() => Swep1Next()}>
-              <Text style={{ color: "#FFFFFF", fontSize: 19, fontWeight: "800" }}>
+            <View style={{ width: DEVICEWIDTH * 0.45 }} />
+            <TouchableOpacity onPress={() => Swep1Next()}
+              style={{width: DEVICEWIDTH * 0.25, height: DEVICEHEIGHT * 0.08,
+                alignItems: 'center', justifyContent: 'center'}}>
+
+              <Text style={{ color: "#FFFFFF", fontSize: 19, fontWeight: "800",
+                  height: DEVICEHEIGHT * 0.06 }}>
                 Next
               </Text>
             </TouchableOpacity>
@@ -197,19 +224,19 @@ export default function RouteScreen({ navigation, route }) {
                 borderRadius: 40,
               }} />
               <View style={{ width: 20 }} />
-              <View style={{
-                backgroundColor: "#7B94EC", width: 20, height: 10,
-                borderRadius: 40,
-              }} />
+              <View style={{backgroundColor: "#7B94EC", width: 20, height: 10,
+                            borderRadius: 40,}} />
             </View>
-            <TouchableOpacity onPress={() => Swep2Start()} style={{
-              width: DEVICEWIDTH * 0.7,
-              height: DEVICEWIDTH * 0.1, backgroundColor: "#5EB9FE", marginTop: 70,
-              borderRadius: 20, justifyContent: 'center', alignItems: 'center'
-            }}>
-              <Text style={{ color: "#FFFFFF", fontSize: 17, fontWeight: "800" }}>
-                Get Started
-              </Text>
+            <TouchableOpacity onPress={() => Swep2Start()}
+              style={{width: DEVICEWIDTH * 0.7, height: DEVICEWIDTH * 0.2,
+                justifyContent: 'center', alignItems: 'center', marginTop: MargTopSwepScreen12}}>
+              <View style={{width: DEVICEWIDTH * 0.7, height: "70%",
+                backgroundColor: "#5EB9FE", borderRadius: 30,
+                justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{ color: "#000000", fontSize: 17, fontWeight: "800" }}>
+                  Get Started
+                </Text>
+              </View>
             </TouchableOpacity>
           </View>
         </SafeAreaView>
@@ -221,7 +248,7 @@ export default function RouteScreen({ navigation, route }) {
   return (
     <SafeAreaView>
       <StatusBar style='auto' />
-      <View style={{ height: DEVICEHEIGHT, width: DEVICEWIDTH, marginTop: DEVICEHEIGHT * 0.042 }}>
+      <View style={{height: DEVICEHEIGHT, width: DEVICEWIDTH * 0.958, marginTop: statusbarHeight }}>
         {
           isfirst == 1 ? (
             <SwepScreen1 />
@@ -230,10 +257,8 @@ export default function RouteScreen({ navigation, route }) {
               <SwepScreen2 />
             ) : (
               <View style={styles.container}>
-                <View style={{
-                  flexDirection: 'row', height: DEVICEHEIGHT * 0.08, width: DEVICEWIDTH,
-                  backgroundColor: "#2574EB", alignItems: 'center',
-                }}>
+                <View style={{flexDirection: 'row', height: TitlebarHeight, width: DEVICEWIDTH,
+                  backgroundColor: "#2574EB", alignItems: 'center',}}>
                   <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     {
                       HomeAct ? (
@@ -251,7 +276,7 @@ export default function RouteScreen({ navigation, route }) {
                   </View>
                 </View>
                 {/* Body */}
-                <View>
+                <View style={{height: BodyHeight, width: DEVICEWIDTH,}}>
                 {
                     isServerError ? (
                       <Image source={require('../assets/Welcome_icc.png')}
@@ -259,7 +284,7 @@ export default function RouteScreen({ navigation, route }) {
                       />
                     ):(
                   <View>
-                <View style={{height: DEVICEHEIGHT * 0.83, width: DEVICEWIDTH,
+                <View style={{height: "92%", width: DEVICEWIDTH,
                     backgroundColor: "#000000",}}>
                   {
                     HomeAct ? (
@@ -287,48 +312,52 @@ export default function RouteScreen({ navigation, route }) {
                   }
                 </View>
                 {/* Bottom tab */}
-                <View style={{height: DEVICEHEIGHT * 0.05, width: DEVICEWIDTH,
+                <View style={{height: DEVICEHEIGHT * 0.085, width: DEVICEWIDTH,
                               backgroundColor: "#FFFFFF", flexDirection: 'row',
-                              justifyContent: 'center', alignItems: 'center', paddingTop: 15}}>
-                  <TouchableOpacity onPress={() => ActiveHome()} style={{ width: DEVICEWIDTH * 0.20, }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                              justifyContent: 'center', alignItems: 'center', paddingTop: 7}}>
+                  <TouchableOpacity onPress={() => ActiveHome()} style={{ width: DEVICEWIDTH * 0.20,
+                          height: DEVICEHEIGHT * 0.085 }}>
+                    <View style={{ flexDirection: 'column', justifyContent: HomeAct ? 'flex-start':'center',
+                          alignItems: 'center', height: DEVICEHEIGHT * 0.085 }}>
                       <FontAwesome name="home" size={HomeAct ? 33 : 24} color={HomeAct ? "#7B94EC" : "black"} />
                       <Text style={{ fontSize: HomeAct ? 12 : 11, color: HomeAct ? "#7B94EC" : "black" }}>
                         HOME</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => ActiveSeries()} style={{ width: DEVICEWIDTH * 0.20, }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <TouchableOpacity onPress={() => ActiveSeries()} style={{ width: DEVICEWIDTH * 0.20,
+                          height: DEVICEHEIGHT * 0.085 }}>
+                    <View style={{ flexDirection: 'column', justifyContent: SeriesAct ? 'flex-start':'center',
+                          alignItems: 'center', height: DEVICEHEIGHT * 0.085 }}>
                       <Entypo name="trophy" size={SeriesAct ? 31 : 24} color={SeriesAct ? "#7B94EC" : "black"} />
                       <Text style={{ fontSize: SeriesAct ? 12 : 11, color: SeriesAct ? "#7B94EC" : "black" }}>
                         SERIES</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => ActiveWorldC()} style={{ width: DEVICEWIDTH * 0.21, }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                      {/* {
-                      WorldCAct? (
-                        <Image source={require('../assets/cricketBTb.png')} style={{width: 24, height: 24}} />
-                      ):(
-                        <Image source={require('../assets/cricketBTw.png')} style={{width: 24, height: 24}} />
-                      )
-                    } */}
+                  <TouchableOpacity onPress={() => ActiveWorldC()} style={{ width: DEVICEWIDTH * 0.21,
+                          height: DEVICEHEIGHT * 0.085 }}>
+                  <View style={{ flexDirection: 'column', justifyContent: WorldCAct ? 'flex-start':'center',
+                          alignItems: 'center', height: DEVICEHEIGHT * 0.085 }}>
                       <MaterialIcons name="sports-cricket" size={WorldCAct ? 31 : 24}
                         color={WorldCAct ? "#7B94EC" : "black"} />
                       <Text style={{ fontSize: WorldCAct ? 12 : 11, color: WorldCAct ? "#7B94EC" : "black" }}>
                         WORLD CUP</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => ActivePrediction()} style={{ width: DEVICEWIDTH * 0.23, }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <TouchableOpacity onPress={() => ActivePrediction()} style={{ width: DEVICEWIDTH * 0.23,
+                          height: DEVICEHEIGHT * 0.085 }}>
+                    <View style={{ flexDirection: 'column',
+                          justifyContent: PredictionsAct ? 'flex-start':'center',
+                          alignItems: 'center', height: DEVICEHEIGHT * 0.085 }}>
                       <Foundation name="graph-trend" size={PredictionsAct ? 37 : 24}
                         color={PredictionsAct ? "#7B94EC" : "black"} />
-                      <Text style={{ fontSize: PredictionsAct ? 12 : 11, color: PredictionsAct ? "#7B94EC" : "black" }}>
+                      <Text style={{ fontSize: PredictionsAct ? 11 : 11, color: PredictionsAct ? "#7B94EC" : "black" }}>
                         PREDICTIONS</Text>
                     </View>
                   </TouchableOpacity>
-                  <TouchableOpacity onPress={() => ActiveMore()} style={{ width: DEVICEWIDTH * 0.20, }}>
-                    <View style={{ flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                  <TouchableOpacity onPress={() => ActiveMore()} style={{ width: DEVICEWIDTH * 0.20,
+                          height: DEVICEHEIGHT * 0.085 }}>
+                  <View style={{ flexDirection: 'column', justifyContent: MoreAct ? 'flex-start':'center',
+                          alignItems: 'center', height: DEVICEHEIGHT * 0.085 }}>
                       <MaterialCommunityIcons name="sort-variant" size={MoreAct ? 33 : 24}
                         color={MoreAct ? "#7B94EC" : "black"} />
                       <Text style={{ fontSize: MoreAct ? 12 : 11, color: MoreAct ? "#7B94EC" : "black" }}>

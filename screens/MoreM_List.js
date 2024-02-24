@@ -305,7 +305,7 @@ export default function MoreM_List ({route}){
                                 flexDirection: "column", alignItems: "center",
                                 justifyContent: "center"}}>
                     {
-                        st == 'png' || st == 'jpg' || st == 'jpe' ? (
+                        st == 'png' || st == 'jpg' || st == 'jpe' || st == 'web' ? (
                             <Image source={{uri: item._links['wp:featuredmedia'][0].href}} 
                                 style={{width: DEVICEWIDTH * 0.9, height: DEVICEWIDTH * 0.5,
                                 borderRadius: 10}} resizeMode="contain"/>
@@ -363,13 +363,22 @@ export default function MoreM_List ({route}){
                             <View style={{width: DEVICEWIDTH * 0.2}}/>
                         )
                         }
-                        <View style={{marginTop: 10}}/>
                         </View>
                         ):(
                             <></>
                         )
                     }
+                    {
+                        index>= DataDetail.length-1 ? (
+                            <View style={{marginTop: 20}}/>
+                        ):(
+                            <></>
+                        )
+                            
+                    }
+
                 </View>
+
             </View>
         );
     }
@@ -381,8 +390,12 @@ export default function MoreM_List ({route}){
                         backgroundColor: "#2574EB", alignItems: 'center',
                         marginTop: DEVICEHEIGHT * 0.042}}>
             <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row"}}>
-                <AntDesign name="arrowleft" size={35} color="#FFFFFF" onPress={()=> navigation.goBack()} />
-                <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 20,
+                <TouchableOpacity onPress={()=> navigation.goBack()}
+                    style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.09,
+                    justifyContent: 'center'}}>
+                    <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                </TouchableOpacity>
+                    <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 20,
                 fontWeight: 'bold'}}>{route.params.title}</Text>
             </View>
             </View>

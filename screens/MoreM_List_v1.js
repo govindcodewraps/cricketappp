@@ -215,7 +215,11 @@ export default function MoreM_List_v1 ({route}){
                         backgroundColor: "#2574EB", alignItems: 'center',
                         marginTop: DEVICEHEIGHT * 0.042}}>
             <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row"}}>
-                <AntDesign name="arrowleft" size={35} color="#FFFFFF" onPress={()=> navigation.goBack()} />
+                <TouchableOpacity onPress={()=> navigation.goBack()}
+                    style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.08,
+                    justifyContent: 'center'}}>
+                    <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                </TouchableOpacity>
                 <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 20,
                 fontWeight: 'bold'}}>{route.params.title}</Text>
             </View>

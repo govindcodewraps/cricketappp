@@ -374,7 +374,7 @@ export default function WorldCup ({route}){
         st = st.substring(st.lastIndexOf(".")+1);
         st = st.substring(st.lastIndexOf(".")+1, 3);
         console.log("ICCWCupList, Img Url : ", item._links['wp:featuredmedia'][0].href);
-        if(st == 'png' || st == 'jpg' || st == 'jpe'){
+        if(st == 'png' || st == 'jpg' || st == 'jpe' || st == 'web'){
             st=1;
         }else{
             st=0;
@@ -469,8 +469,14 @@ export default function WorldCup ({route}){
                                 <View style={{width: DEVICEWIDTH * 0.2}}/>
                             )
                         }
-                        <View style={{marginTop: 60}}/>
                         </View>
+                        ):(
+                            <></>
+                        )
+                    }
+                    {
+                        index>= DataDetail.length-1 ? (
+                            <View style={{marginTop: 60}}/>
                         ):(
                             <></>
                         )
@@ -510,20 +516,18 @@ export default function WorldCup ({route}){
     }
     //-----------------------------------
     const ShowTopMenu = ({item, index}) => {
-        console.log("WorldCup.js, ShowTopMenu item.Active : ", item.id, item.Active);
+        console.log("WorldCup.js, ShowTopMenu item.Active : ", item.id, item.Active, ", item.Title.length : ", item.Title.length);
         return(
-            <View style={{width: DEVICEWIDTH * 0.35, alignItems: "center",
-                justifyContent: "center"}}>
-            <TouchableOpacity onPress={()=> WhoActive(item.id)} >
-                <View style={{
-                        backgroundColor: item.Active == 1 ? "#7B94EC" : "#444444",
-                        borderRadius: 7, alignItems: "center"}}>
+            <TouchableOpacity onPress={()=> WhoActive(item.id)}
+                style={{width: item.Title.length < 23 ? DEVICEWIDTH * 0.35 : DEVICEWIDTH * 0.55,
+                    alignItems: "center", height: DEVICEHEIGHT * 0.18, paddingTop: 7}}>
+                <View style={{backgroundColor: item.Active == 1 ? "#7B94EC" : "#444444",
+                        borderRadius: 15, height: "27%", justifyContent: "center"}}>
                     <Text style={{color: item.Active == 1 ? "#000000" : "#FFFFFF",
                         fontSize: item.Active == 1 ? 12 : 10, padding: 3, }}>
                         {item.Title}</Text>
                 </View>
             </TouchableOpacity>
-            </View>
         );
     }
     //--------------------------
@@ -533,10 +537,10 @@ export default function WorldCup ({route}){
                 <ActivityIndicator/>
             ):(
             <View style={{width: DEVICEWIDTH, height: DEVICEHEIGHT * 0.83}}>
-            <View style={{backgroundColor: "#444444", width: DEVICEWIDTH, height: DEVICEWIDTH * 0.13,
-                        justifyContent: "center"}}>
-                <View style={{height: "70%", flexDirection: "row", justifyContent: "center",
-                            marginLeft: 10}}>
+                <View style={{backgroundColor: "#444444", width: DEVICEWIDTH,
+                    height: DEVICEWIDTH * 0.13,}}>
+                <View style={{height: "100%", flexDirection: "row", 
+                        marginLeft: 10, }}>
                     <FlatList showsHorizontalScrollIndicator={false}
                         data={TopMenu} horizontal extraData={TMFlatListRF}
                         keyExtractor={(item, index) => index.toString()}

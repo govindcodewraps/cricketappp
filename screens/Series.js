@@ -101,14 +101,15 @@ export default function Series({route}){
             {/*Header of the Expandable List Item*/}
             <View style={{alignItems: "center", marginTop: 10}}>
             <View style={{borderColor: "#C0BBBB", borderRadius: 12, borderWidth: 1,
-                          width: DEVICEWIDTH * 0.95,}}>
+                          width: DEVICEWIDTH * 0.95, justifyContent: "center",
+                          height: DEVICEHEIGHT * 0.075}}>
                   {
                     item.post_parent == 0 ? (
                         <TouchableOpacity key={item.id} onPress={() => {
                             navigation.navigate("MoreMenuList", {title: item.Title, PageID: item.href})
                         }}
                             style={styles.header}>
-                            <View style={{flexDirection: 'row', marginLeft: 5, alignItems: "center",}}>
+                            <View style={{flexDirection: 'row', marginLeft: 5,}}>
                             <Text style={[styles.headerText, {width: "87%", padding: 5,
                                         color: "#FFFFFF",}]}>
                                 {item.Title}</Text>
@@ -132,7 +133,7 @@ export default function Series({route}){
             </View>
             {/* <View style={{width: "auto", height: 1, backgroundColor: "#C0BBBB"}}/> */}
             
-            <View style={{height: layoutHeight, overflow: 'hidden'}}>
+            <View style={{height: layoutHeight, overflow: 'hidden', marginTop: 2}}>
               {/*Content under the header of the Expandable List Item*/}
               {item.submenu.map((item, key) => (
                 <TouchableOpacity
@@ -215,6 +216,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#000000',
       padding: 7,
       borderRadius: 15,
+      width: DEVICEWIDTH * 0.93,
+      height: DEVICEHEIGHT * 0.07,
+      justifyContent: "center",
     },
     headerText: {
       fontSize: 16,
@@ -227,13 +231,15 @@ const styles = StyleSheet.create({
     text: {
       fontSize: 16,
       color: '#FFFFFF',
-      padding: 8,
       marginLeft: 20,
+      marginBottom: 17,
     },
     content: {
       marginLeft: 15,
       width: DEVICEWIDTH * 0.90,
+      height: DEVICEHEIGHT * 0.07,
       backgroundColor: '#606070',
+      justifyContent: "center",
     },
     touchableOpacityStyle: {
       position: 'absolute',

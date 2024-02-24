@@ -108,12 +108,15 @@ export default class ShowDetail1 extends Component {
               <View style={{flexDirection: 'row', height: DEVICEHEIGHT * 0.09, width: DEVICEWIDTH,
                             backgroundColor: "#2574EB", alignItems: 'center', marginTop: 35}}>
                 <View style={{justifyContent:'center', alignItems: 'center', flexDirection: "row",
-                                marginStart: 20}}>
-                    <AntDesign name="arrowleft" size={35} color="#FFFFFF" 
-                            onPress={()=> this.props.navigation.goBack()} />
-                    <Text style={{color: "#FFFFFF", marginStart: 10, fontSize: 15,
-                        width: DEVICEWIDTH * 0.86, fontWeight: 'bold', padding: 5}}>
-                        {this.props.route.params.title}</Text>
+                                marginStart: 10}}>
+                  <TouchableOpacity onPress={()=> this.props.navigation.goBack()}
+                    style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.09,
+                    justifyContent: 'center'}}>
+                    <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                  </TouchableOpacity>
+                  <Text style={{color: "#FFFFFF", marginStart: 0, fontSize: 15,
+                      width: DEVICEWIDTH * 0.86, fontWeight: 'bold', padding: 5}}>
+                      {this.props.route.params.title}</Text>
                 </View>
               </View>
               {

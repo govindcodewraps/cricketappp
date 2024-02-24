@@ -69,7 +69,9 @@ export default function MoreMenus ({route}){
                     set_isLoading(false);
                     setRefreshing(false);
                 }, 30);
-                console.log("MoreMenu.js, ICC Main Menus : ", ICC);
+                if(ICC)
+                    console.log("MoreMenu.js,------------------- 88888888888888888888888888888888888888 ,,,,,,,,,,,,,,,,,,");
+                console.log("MoreMenu.js, ------------------------------------ICC Main Menus : ", ICC);
                 //---------------------Fetch IPL submenus
                 let DataIPLlength = 0;
                 for(j=0; j<ICC.length; j++){
@@ -92,27 +94,37 @@ export default function MoreMenus ({route}){
                 T20WC = await SMR.Get_MoreMenuMain("IPL Teams", PrimaryMenuData)
                 Set_DataIPLTeam(T20WC);
                 Asiacup = await SMR.Get_MoreMenuMain("ASIA CUP", PrimaryMenuData)
-                Set_DataAsiaCup(Asiacup);
-                //---------------------Fetch ASIA CUP submenus
-                DataIPLlength = 0;
-                for(j=0; j<Asiacup.length; j++){
-                        IPLSubMenu = await SMR.Get_MoreMenuSub(Asiacup[j].post_parent);
-                        if(DataAsiaCup.length>0){
-                            DataIPLlength = 1;
-                            DataAsiaCup[j].submenu.push(IPLSubMenu);
-                        }else{
-                            DataIPLlength = 0;
-                            Asiacup[j].submenu = IPLSubMenu;
+                console.log("MoreMenu.js,------------------- 3333333333333333333333333333333333333 ,,,,,,,,,,,,,,,,,,");
+                if(Asiacup){
+                    Set_DataAsiaCup(Asiacup);
+                    console.log("MoreMenu.js,------------------- AsiaCup Menus & Submenu : ", Asiacup);
+                    DataIPLlength = 0;
+                    for(j=0; j<Asiacup.length; j++){
+                            IPLSubMenu = await SMR.Get_MoreMenuSub(Asiacup[j].post_parent);
+                            if(DataAsiaCup.length>0){
+                                DataIPLlength = 1;
+                                DataAsiaCup[j].submenu.push(IPLSubMenu);
+                            }else{
+                                DataIPLlength = 0;
+                                Asiacup[j].submenu = IPLSubMenu;
+                            }
+                        if(j>=Asiacup.length-1 && DataIPLlength == 0){
+                            Set_DataAsiaCup(Asiacup);
+                            console.log("MoreMenu.js,------------------- AsiaCup Menus & Submenu : ", Asiacup);
                         }
-                    if(j>=Asiacup.length-1 && DataIPLlength == 0){
-                        Set_DataAsiaCup(Asiacup);
-                        console.log("MoreMenu.js, ICC Menus & Submenu : ", Asiacup);
                     }
+                }else{
+
                 }
+                console.log("MoreMenu.js,------------------- 444444444444444444444444444444444444 ,,,,,,,,,,,,,,,,,,");
+                //---------------------Fetch ASIA CUP submenus
             topteams = await SMR.Get_TopTeams();
-            Set_DataTopTeams(topteams);
+            if(topteams)
+                Set_DataTopTeams(topteams);
+
             Other = await SMR.Get_MoreMenuOther("More..", PrimaryMenuData)
-            Set_DataOther(Other);
+            if(Other)
+                Set_DataOther(Other);
         }else{
             set_ShowMenu(false);
             set_isLoading(false);
@@ -177,7 +189,7 @@ export default function MoreMenus ({route}){
         UIManager.setLayoutAnimationEnabledExperimental(true);
     }
     //-----------------------------------------
-    const ExpandableComponent = ({ item, onClickFunction }) => {
+    const ExpandableComponent = ({ item, onClickFunction, Index }) => {
         //Custom Component for the Expandable List
         const [layoutHeight, setLayoutHeight] = React.useState(0);
         const navigation = useNavigation();
@@ -203,8 +215,7 @@ export default function MoreMenus ({route}){
                         <TouchableOpacity key={item.id} onPress={() => {
                             console.log("MoreMenu.js, ExpandableComponent, Line : ", 193);
                             navigation.navigate("MoreMenuList", {title: item.Title, PageID: item.href})
-                        }}
-                            style={styles.header}>
+                        }} style={styles.header}>
                             <View style={{flexDirection: 'row', marginLeft: 5, alignItems: "center",}}>
                             <Text style={[styles.headerText, {width: "87%", padding: 5,
                                         color: "#FFFFFF",}]}>
@@ -229,7 +240,7 @@ export default function MoreMenus ({route}){
             </View>
             {/* <View style={{width: "auto", height: 1, backgroundColor: "#C0BBBB"}}/> */}
             
-            <View style={{height: layoutHeight, overflow: 'hidden'}}>
+            <View style={{height: layoutHeight, overflow: 'hidden', marginTop: 2}}>
             {
                 
                 item.submenu.map((item, key) => (
@@ -248,6 +259,7 @@ export default function MoreMenus ({route}){
                 ))
             }
             </View>
+
           </View>
         );
     };
@@ -320,7 +332,7 @@ export default function MoreMenus ({route}){
     //     Set_DataOther(array);
     // };
     //-----------------------------------
-    const ShowTopTeams = ({item}) => {
+    const ShowTopTeams = (item, index) => {
         return (
             <View style={{alignItems: "center", marginTop: 10}}>
                 <View style={[styles.header, {borderColor: "#C0BBBB", borderRadius: 12, borderWidth: 2,
@@ -339,7 +351,8 @@ export default function MoreMenus ({route}){
                         </View>
                     </TouchableOpacity>
                 </View>
-              </View>
+                <View style={{marginTop: index == DataTopTeams.length-1 ? 20 : 0}}/>
+            </View>
         );
     }
     //-----------------------------------
@@ -353,10 +366,10 @@ export default function MoreMenus ({route}){
                             console.log("MoreMenu.js, Other, Titel : ", item.Title, ", Url : ", item.href);
                             navigation.navigate("MoreMenuList_V1",
                             {title: item.Title, PageID: item.href})
-                        }
-                        }>    
-                            <View style={{flexDirection: "row", padding: 4}}>
-                                <Text style={[styles.headerText, {width: "82%", marginLeft: 10,
+                        }} style={{width: "100%", height: "100%"}}>
+                            <View style={{flexDirection: "row", padding: 4, width: "100%",
+                                    height: "100%"}}>
+                                <Text style={[styles.headerText, {width: "100%", marginLeft: 10,
                                             color: item.isExpanded ? "#5EB9FE":"#FFFFFF",}]}>
                                     {item.Title}
                                 </Text>
@@ -374,10 +387,10 @@ export default function MoreMenus ({route}){
                             console.log("MoreMenu.js, Other, Titel : ", item.Title, ", Url : ", item.href);
                             navigation.navigate("MoreMenuList",
                             {title: item.Title, PageID: item.href})
-                        }
-                        }>    
-                            <View style={{flexDirection: "row", padding: 4}}>
-                                <Text style={[styles.headerText, {width: "82%", marginLeft: 10,
+                        }} style={{width: "100%", height: "100%"}}>
+                            <View style={{flexDirection: "row", padding: 4, width: "100%",
+                                height: "100%"}}>
+                                <Text style={[styles.headerText, {width: "100%", marginLeft: 10,
                                             color: item.isExpanded ? "#5EB9FE":"#FFFFFF",}]}>
                                     {item.Title}
                                 </Text>
@@ -396,8 +409,9 @@ export default function MoreMenus ({route}){
                         width: DEVICEWIDTH * 0.95}]}>
                     <TouchableOpacity key={item.id} onPress={()=>
                         navigation.navigate("MoreInfo", {title: item.name, page: item.page, action: "2"})
-                    }>    
-                        <View style={{flexDirection: "row", padding: 4}}>
+                        } style={{width: "100%", height: "100%"}}>
+                        <View style={{flexDirection: "row", padding: 4, width: "100%",
+                            height: "100%"}}>
                             <Image source={item.Micon} style={{width: 24, height: 24}}/>
                             <Text style={[styles.headerText, {width: "82%", marginLeft: 10,
                                         color: item.isExpanded ? "#5EB9FE":"#FFFFFF",}]}>
@@ -428,17 +442,17 @@ export default function MoreMenus ({route}){
     const ShowTopMenu = ({item, index}) => {
         console.log("MoreMenu.js, ShowTopMenu item.Active : ", item.id, item.Active);
         return(
-            <View style={{width: DEVICEWIDTH * 0.22, alignItems: "center",
-            justifyContent: "center"}}>
-            <TouchableOpacity onPress={()=> WhoActive(item.id)} >
+            <TouchableOpacity onPress={()=> WhoActive(item.id)} 
+                style={{width: DEVICEWIDTH * 0.22, alignItems: "center",
+                        height: DEVICEHEIGHT * 0.18, paddingTop: 8}}>
                 <View style={{backgroundColor: item.Active == 1 ? "#7B94EC" : "#444444",
-                            borderRadius: 7, alignItems: "center"}}>
+                        borderRadius: 15, height: "27%", justifyContent: "center",
+                        width: "90%", alignItems: "center"}}>
                     <Text style={{color: item.Active == 1 ? "#000000" : "#FFFFFF",
                         fontSize: item.Active == 1 ? 12 : 10, padding: 3, }}>
                         {item.Title}</Text>
                 </View>
             </TouchableOpacity>
-            </View>
         );
     }
     //--------------------------
@@ -453,7 +467,7 @@ export default function MoreMenus ({route}){
             <View style={{width: DEVICEWIDTH, height: DEVICEHEIGHT * 0.83}}>
             <View style={{backgroundColor: "#444444", width: DEVICEWIDTH, height: DEVICEWIDTH * 0.13,
                         justifyContent: "center"}}>
-                <View style={{height: "70%", flexDirection: "row", alignItems: "center"}}>
+                <View style={{height: "100%", flexDirection: "row", alignItems: "center"}}>
                     <FlatList
                         data={TopMenu} horizontal extraData={TMFlatListRF}
                         keyExtractor={(item, index) => index.toString()}
@@ -519,64 +533,91 @@ export default function MoreMenus ({route}){
                 {
                     TopMenu[0].Active == 1 ? (
                         <View style={{height: "100%",flexDirection: "row", marginLeft: 0,}}>
-                        <ScrollView>
-                            {DataIPL.map((item, key) => (
-                                <ExpandableComponent
-                                key={item.Title}
-                                onClickFunction={() => {
-                                    updateLayout(key);
-                                }}
-                                item={item}
-                                />
-                            ))
-                            }
-                        </ScrollView>
-                        </View>
-                    ):(
-                        TopMenu[1].Active == 1 ? (
-                            <View style={{height: "100%",flexDirection: "row", marginLeft: 0,}}>
+                        {
+                        DataIPL.length > 0 ? (
                             <ScrollView>
-                                {DataIPLTeam.map((item, key) => (
+                                {DataIPL.map((item, key, index) => (
                                     <ExpandableComponent
                                     key={item.Title}
                                     onClickFunction={() => {
-                                        IPLTeamsupdateLayout(key);
+                                        updateLayout(key);
                                     }}
                                     item={item}
+                                    Index = {index}
                                     />
                                 ))
                                 }
                             </ScrollView>
-                            </View>
                         ):(
-                            TopMenu[2].Active == 1 ? (
-                                <View style={{height: "100%",flexDirection: "row", marginLeft: 0,}}>
+                            <View style={{alignContent: "center", justifyContent: "center"}}>
+                                <Text style={{color: "#FFFFFF"}}>Data not available</Text>
+                            </View>
+                            )
+                        }
+                        </View>
+                    ):(
+                        TopMenu[1].Active == 1 ? (
+                            <View style={{height: "100%",flexDirection: "row", marginLeft: 0,}}>
+                            {
+                            DataIPLTeam.length >0 ? (
                                 <ScrollView>
-                                    {DataAsiaCup.map((item, key) => (
+                                    {DataIPLTeam.map((item, key, index) => (
                                         <ExpandableComponent
                                         key={item.Title}
                                         onClickFunction={() => {
-                                            AsiaCupdateLayout(key);
+                                            IPLTeamsupdateLayout(key);
                                         }}
                                         item={item}
+                                        Index = {index}
                                         />
                                     ))
                                     }
                                 </ScrollView>
+                                ):(
+                                    <View style={{alignContent: "center", justifyContent: "center"}}>
+                                        <Text style={{color: "#FFFFFF"}}>Data not available</Text>
+                                    </View>
+                                )
+                            }
+                            </View>
+                        ):(
+                            TopMenu[2].Active == 1 ? (
+                                <View style={{height: "100%",flexDirection: "row", marginLeft: 0,}}>
+                                {
+                                DataAsiaCup.length > 0 ? (
+                                    <ScrollView>
+                                        {DataAsiaCup.map((item, key, index) => (
+                                            <ExpandableComponent
+                                            key={item.Title}
+                                            onClickFunction={() => {
+                                                AsiaCupdateLayout(key);
+                                            }}
+                                            item={item}
+                                            Index = {index}
+                                            />
+                                        ))
+                                        }
+                                    </ScrollView>
+                                ):(
+                                <View style={{alignContent: "center", justifyContent: "center"}}>
+                                    <Text style={{color: "#FFFFFF"}}>Data not available</Text>
+                                </View>
+                                )
+                                }
                                 </View>
                             ):(
-                                TopMenu[3].Active == 1 ? (
+                                TopMenu[3].Active == 1 && DataTopTeams.length > 0 ? (
                                     <View>
                                         <FlatList
                                             data={DataTopTeams}
                                             keyExtractor={(item, index) => index.toString()}
                                             enableEmptySections={true}
-                                            renderItem={ShowTopTeams}
+                                            renderItem={({item, index}) => ShowTopTeams(item, index)}
                                         />
                                     </View>
     
                                 ):(
-                                TopMenu[4].Active == 1 ? (
+                                TopMenu[4].Active == 1 && DataOther.length > 0 ? (
                                 <View>
                                 <FlatList
                                     data={DataOther}
@@ -586,7 +627,7 @@ export default function MoreMenus ({route}){
                                 />
                                 </View>
                             ):(
-                                TopMenu[5].Active == 1 ? (
+                                TopMenu[5].Active == 1 && DataInfo.length > 0 ? (
                                     <View>
                                         <FlatList
                                             data={DataInfo}
@@ -637,7 +678,10 @@ const styles = StyleSheet.create({
       header: {
         backgroundColor: '#000000',
         padding: 7,
-        borderRadius: 13,
+        borderRadius: 15,
+        width: DEVICEWIDTH * 0.93,
+        height: DEVICEHEIGHT * 0.07,
+        justifyContent: "center",
       },
       headerText: {
         fontSize: 16,
@@ -650,13 +694,15 @@ const styles = StyleSheet.create({
       text: {
         fontSize: 16,
         color: '#FFFFFF',
-        padding: 8,
         marginLeft: 20,
+        marginBottom: 17,
       },
       content: {
         marginLeft: 15,
         width: DEVICEWIDTH * 0.90,
+        height: DEVICEHEIGHT * 0.07,
         backgroundColor: '#606070',
+        justifyContent: "center",
       },
       touchableOpacityStyle: {
         position: 'absolute',

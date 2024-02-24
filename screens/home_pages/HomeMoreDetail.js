@@ -330,6 +330,14 @@ export default function HomeMoreDetails({ route }) {
                         <></>
                     )
                 }
+                {
+                    index>= DataDetail.length-1 ? (
+                        <View style={{marginTop: 60}}/>
+                    ):(
+                        <></>
+                    )
+                }
+
                 </View>
             </View>
         );
@@ -340,12 +348,15 @@ export default function HomeMoreDetails({ route }) {
             <StatusBar style="auto" />
             <SafeAreaView>
                 {/* Top app bar */}
-                <View style={{
-                    flexDirection: 'row', height: DEVICEHEIGHT * 0.08, width: DEVICEWIDTH,
-                    backgroundColor: "#2574EB", alignItems: 'center', marginTop: 34
-                }}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "row" }}>
-                        <AntDesign name="arrowleft" size={35} color="#FFFFFF" onPress={() => navigation.goBack()} />
+                <View style={{flexDirection: 'row', height: DEVICEHEIGHT * 0.08, width: DEVICEWIDTH,
+                        backgroundColor: "#2574EB", alignItems: 'center', marginTop: 34}}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center',
+                            flexDirection: "row", marginStart: 6}}>
+                        <TouchableOpacity onPress={()=> navigation.goBack()}
+                            style={{width: DEVICEWIDTH * 0.135, height: DEVICEHEIGHT * 0.08,
+                            justifyContent: 'center'}}>
+                            <AntDesign name="arrowleft" size={35} color="#FFFFFF"/>
+                        </TouchableOpacity>
                         <Text style={{
                             color: "#FFFFFF", marginStart: 10, fontSize: 20,
                             fontWeight: 'bold'

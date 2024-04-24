@@ -2,7 +2,7 @@
   "expo": {
     "name": "cricket",
     "slug": "cricket",
-    "version": "1.0.3",
+    "version": "4.0.1",
     "orientation": "portrait",
     "icon": "./assets/cricket_icon1.png",
     "userInterfaceStyle": "light",
@@ -17,21 +17,21 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 3,
+      "versionCode": 5,
       "adaptiveIcon": {
         "foregroundImage": "./assets/cricket_icon1.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.oisi.cricket"
+      "package": "com.kulhadiya.cricket"
     },
     "web": {
       "favicon": "./assets/cricket_icon1.png"
     },
     "extra": {
       "eas": {
-        "projectId": "1f38a6bc-68f5-494a-a3e6-91c4368ea0d1"
+        "projectId": "053a5548-b536-47fa-b8c7-4eea325f486e"
       }
     },
-    "owner": "oisi"
+    "owner": "kulhadiya"
   }
 }
